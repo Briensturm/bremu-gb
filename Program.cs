@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace bremugb
+namespace bremugb.core
 {
     class Program
     {
