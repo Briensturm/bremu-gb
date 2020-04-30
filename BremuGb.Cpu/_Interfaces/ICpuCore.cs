@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace bremugb.cpu
+﻿
+namespace BremuGb.Cpu
 {
     interface ICpuCore
     {

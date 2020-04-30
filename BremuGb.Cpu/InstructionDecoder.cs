@@ -1,6 +1,7 @@
 ﻿using System;
+using BremuGb.Cpu.Instructions;
 
-namespace bremugb.cpu.Instructions
+namespace BremuGb.Cpu
 {
     public static class InstructionDecoder
     {
@@ -8,10 +9,10 @@ namespace bremugb.cpu.Instructions
         {
             switch(opcode)
             {
-                case 0x000:
+                case 0x00:
                     return new TestInstruction();
                 default:
-                    throw new InvalidOperationException("Unable to decode unknown opcode: " + opcode);
+                    throw new InvalidOperationException("Unknown opcode, unable to decode: " + opcode);
             }
         }
     }

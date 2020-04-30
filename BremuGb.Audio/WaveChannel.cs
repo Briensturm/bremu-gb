@@ -1,8 +1,7 @@
-﻿using System;
-
+﻿
 namespace BremuGb.Audio
 {
-    public class WaveChannel
+    public class WaveChannel : IAudioChannel
     {
     }
 }

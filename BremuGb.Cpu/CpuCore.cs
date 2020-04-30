@@ -1,9 +1,9 @@
 ﻿
 using BremuGb.Memory;
 
-namespace bremugb.cpu
+namespace BremuGb.Cpu
 {
-    public class CpuCore
+    public class CpuCore : ICpuCore
     {
         private IRandomAccessMemory mainMemory;
 
@@ -12,11 +12,26 @@ namespace bremugb.cpu
 
         private bool interruptMasterEnable;
 
-        private byte _CurrentOpcode;
+        private byte currentOpcode;
 
         public CpuCore(IRandomAccessMemory mainMemory)
         {
             this.mainMemory = mainMemory;
+        }
+
+        public void Clock()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Initialize()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Run()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
