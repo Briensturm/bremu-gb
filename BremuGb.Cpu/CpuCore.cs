@@ -1,19 +1,22 @@
-﻿using BremuGb.Memory;
+﻿
+using BremuGb.Memory;
 
 namespace bremugb.cpu
 {
     public class CpuCore
     {
-        private IRandomAccessMemory _MainMemory;
+        private IRandomAccessMemory mainMemory;
 
-        private ushort _ProgramCounter;
-        private ushort _StackPointer;
+        private ushort programCounter;
+        private ushort stackPointer;
+
+        private bool interruptMasterEnable;
 
         private byte _CurrentOpcode;
 
         public CpuCore(IRandomAccessMemory mainMemory)
         {
-            _MainMemory = mainMemory;
+            this.mainMemory = mainMemory;
         }
     }
 }
