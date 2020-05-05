@@ -1,10 +1,9 @@
 ﻿
 namespace BremuGb.Cpu
 {
-    interface ICpuCore
+    public interface ICpuCore
     {
-        public void Initialize();
-        public void Run();
-        public void Clock();
+        public void Reset();
+        public void ExecuteCpuCycle();
     }
 }
