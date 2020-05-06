@@ -11,7 +11,7 @@ namespace BremuGb.Cpu.Tests
         [TestMethod]
         public void TestLDNN()
         {
-            byte opcode = 0x6B;
+            /*byte opcode = 0x6B;
 
             //index based mocking?
             var cpuStateMock = new Mock<ICpuState>();
@@ -23,7 +23,7 @@ namespace BremuGb.Cpu.Tests
             IInstruction instruction = new LDRR(opcode);
 
             //act
-            instruction.ExecuteCycle(cpuStateMock.Object, mainMemoryMock.Object);
+            instruction.ExecuteCycle(cpuStateMock.Object, mainMemoryMock.Object);*/
             
 
         }

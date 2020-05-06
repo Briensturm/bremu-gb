@@ -12,6 +12,8 @@ namespace BremuGb.Cpu
             HaltMode = false;
             StopMode = false;
 
+            ImeScheduled = false;            
+
             Registers.Reset();
         }
 
@@ -23,5 +25,6 @@ namespace BremuGb.Cpu
         public bool InstructionPrefix { get; set; }
         public bool HaltMode { get; set; }
         public bool StopMode { get; set; }
+        public bool ImeScheduled { get; set; }
     }
 }

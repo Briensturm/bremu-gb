@@ -1,5 +1,6 @@
 ﻿
 using BremuGb.Memory;
+using BremuGb.Common.Constants;
 
 namespace BremuGb.Cpu
 {
@@ -28,8 +29,20 @@ namespace BremuGb.Cpu
             if (_currentInstruction.IsFetchNecessary())
             {
                 //check for interrupts
+                /*var interruptEnable = _mainMemory.ReadByte(MiscRegisters.c_InterruptEnable);
+                var interruptFlags = _mainMemory.ReadByte(MiscRegisters.c_InterruptEnable);
 
-                LoadNextInstruction();
+                if (interruptEnable == 1) //change this
+                    LoadNextInterruptRoutine();
+                else*/
+                    LoadNextInstruction();
+            }
+
+            //delayed EI handling
+            if(_cpuState.ImeScheduled)
+            {
+                _cpuState.ImeScheduled = false;
+                _cpuState.InterruptMasterEnable = true;
             }
         }
 
@@ -53,6 +66,11 @@ namespace BremuGb.Cpu
             }
             else
                 _currentInstruction = InstructionDecoder.GetInstructionFromOpcode(nextOpcode);
+        }
+
+        private void LoadNextInterruptRoutine()
+        {
+
         }
     }
 }

@@ -4,14 +4,57 @@ namespace BremuGb.Cpu
 {
     public class CpuRegisters
     {
+        public byte F
+        {
+            get
+            {
+                return (byte)(((ZeroFlag ? 1 : 0) << 7) |
+                              ((AddSubFlag ? 1 : 0) << 6) |
+                              ((HalfCarryFlag ? 1 : 0) << 5) |
+                              ((CarryFlag ? 1 : 0) << 4));
+            }
+
+            set
+            {
+                ZeroFlag = (value & 0x80) == 0x80;
+                AddSubFlag = (value & 0x40) == 0x40;
+                HalfCarryFlag = (value & 0x20) == 0x20;
+                CarryFlag = (value & 0x10) == 0x10;
+            }
+        }
         public byte A { get; set; }
-        public byte F { get; set; }
         public byte B { get; set; }
         public byte C { get; set; }
         public byte D { get; set; }
         public byte E { get; set; }
         public byte H { get; set; }
         public byte L { get; set; }
+        public ushort BC
+        {
+            get
+            {
+                return (ushort)(B << 8 | C);
+            }
+            set
+            {
+                B = (byte)(value >> 8);
+                C = (byte)(value & 0x00FF);
+            }
+        }
+
+        public ushort DE
+        {
+            get
+            {
+                return (ushort)(D << 8 | E);
+            }
+            set
+            {
+                D = (byte)(value >> 8);
+                E = (byte)(value & 0x00FF);
+            }
+        }
+
         public ushort HL
         {
             get
@@ -20,10 +63,15 @@ namespace BremuGb.Cpu
             }
             set
             {
-                H = (byte)(HL >> 8);
-                L = (byte)(HL & 0x0011);
+                H = (byte)(value >> 8);
+                L = (byte)(value & 0x00FF);
             }
         }
+
+        public bool HalfCarryFlag { get; set; }
+        public bool CarryFlag { get; set; }
+        public bool ZeroFlag { get; set; }
+        public bool AddSubFlag { get; set; }
 
         public ushort this[int index]
         {
@@ -79,14 +127,18 @@ namespace BremuGb.Cpu
 
         public void Reset()
         {
-            A = 0x01;
-            F = 0xB0;
+            A = 0x01;            
             B = 0x00;
             C = 0x13;
             D = 0x00;
             E = 0xD8;
             H = 0x01;
             L = 0x4D;
+
+            HalfCarryFlag = true;
+            CarryFlag = true;
+            ZeroFlag = true;
+            AddSubFlag = false;
         }
     }
 }

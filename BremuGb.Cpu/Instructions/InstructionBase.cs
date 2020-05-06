@@ -32,5 +32,22 @@ namespace BremuGb.Cpu.Instructions
 
             _remainingCycles = InstructionLength;
         }
+
+        protected bool IsConditionMet(ICpuState cpuState)
+        {
+            switch(_opcode & 0x1C)
+            {
+                case 0x00:
+                    return !cpuState.Registers.ZeroFlag;
+                case 0x01:
+                    return cpuState.Registers.ZeroFlag;
+                case 0x10:
+                    return !cpuState.Registers.CarryFlag;
+                case 0x11:
+                    return cpuState.Registers.ZeroFlag;
+                default:
+                    throw new InvalidOperationException($"Unexpected behavior for conditional opcode 0x{_opcode:X2}");
+            }
+        }
     }
 }

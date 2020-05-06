@@ -3,13 +3,13 @@ using BremuGb.Memory;
 
 namespace BremuGb.Cpu.Instructions
 {
-    public class DI : InstructionBase
+    public class JPHL : InstructionBase
     {
         protected override int InstructionLength => 1;
 
         public override void ExecuteCycle(ICpuState cpuState, IRandomAccessMemory mainMemory)
         {
-            cpuState.InterruptMasterEnable = false;
+            cpuState.ProgramCounter = cpuState.Registers.HL;
 
             base.ExecuteCycle(cpuState, mainMemory);
         }

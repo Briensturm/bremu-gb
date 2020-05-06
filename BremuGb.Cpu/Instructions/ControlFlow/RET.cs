@@ -3,23 +3,23 @@ using BremuGb.Memory;
 
 namespace BremuGb.Cpu.Instructions
 {
-    public class JPNN : InstructionBase
+    public class RET : InstructionBase
     {
         private ushort _jumpAddress;
 
-        protected override int InstructionLength => 3;
+        protected override int InstructionLength => 4;
 
         public override void ExecuteCycle(ICpuState cpuState, IRandomAccessMemory mainMemory)
         {
             switch(_remainingCycles)
             {
-                case 3:
+                case 4:
                     //read jump address lsb
-                    _jumpAddress = mainMemory.ReadByte(cpuState.ProgramCounter++);
+                    _jumpAddress = mainMemory.ReadByte(cpuState.StackPointer++);
                     break;
-                case 2:
+                case 3:
                     //read jump address msb
-                    _jumpAddress |= (ushort)(mainMemory.ReadByte(cpuState.ProgramCounter++) << 8);
+                    _jumpAddress |= (ushort)(mainMemory.ReadByte(cpuState.StackPointer++) << 8);
                     break;
                 case 1:
                     //do the jump

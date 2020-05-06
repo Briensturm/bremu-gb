@@ -3,13 +3,15 @@ using BremuGb.Memory;
 
 namespace BremuGb.Cpu.Instructions
 {
-    public class EI : InstructionBase
+    public class SCF : InstructionBase
     {
         protected override int InstructionLength => 1;
 
         public override void ExecuteCycle(ICpuState cpuState, IRandomAccessMemory mainMemory)
         {
-            cpuState.InterruptMasterEnable = true;
+            cpuState.Registers.CarryFlag = true;
+            cpuState.Registers.HalfCarryFlag = false;
+            cpuState.Registers.AddSubFlag = false;
 
             base.ExecuteCycle(cpuState, mainMemory);
         }
