@@ -17,6 +17,15 @@ namespace BremuGb.Cpu.Instructions
 
         public virtual void ExecuteCycle(ICpuState cpuState, IRandomAccessMemory mainMemory)
         {
+            if (cpuState == null)
+                throw new ArgumentNullException(nameof(cpuState));
+            if (mainMemory == null)
+                throw new ArgumentNullException(nameof(mainMemory));
+
+            //caller needs to check IsFetchNecessary() beforehand
+            if (IsFetchNecessary())
+                throw new InvalidOperationException("No remaining cycles for this instruction");
+
             _remainingCycles--;
         }
 
@@ -28,25 +37,26 @@ namespace BremuGb.Cpu.Instructions
         public void Initialize()
         {
             if (InstructionLength < 1)
-                throw new InvalidOperationException("Instruction cycle count must be greater than 1");
+                throw new InvalidOperationException("Instruction cycle count must be greater than 0");
 
             _remainingCycles = InstructionLength;
         }
 
         protected bool IsConditionMet(ICpuState cpuState)
         {
-            switch(_opcode & 0x1C)
+            var condition = _opcode & 0x18;
+            switch (condition)
             {
                 case 0x00:
                     return !cpuState.Registers.ZeroFlag;
-                case 0x01:
+                case 0x08:
                     return cpuState.Registers.ZeroFlag;
                 case 0x10:
                     return !cpuState.Registers.CarryFlag;
-                case 0x11:
-                    return cpuState.Registers.ZeroFlag;
+                case 0x18:
+                    return cpuState.Registers.CarryFlag;
                 default:
-                    throw new InvalidOperationException($"Unexpected behavior for conditional opcode 0x{_opcode:X2}");
+                    throw new InvalidOperationException($"Unexpected behavior for conditional opcode 0x{_opcode:X2} with condition 0x{condition:X2}");
             }
         }
     }

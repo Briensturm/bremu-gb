@@ -20,16 +20,16 @@ namespace BremuGb.Cpu.Instructions
                 case 1:
                     switch(_registerBits)
                     {
-                        case 0x00:
+                        case 0b00:
                             cpuState.Registers.BC++;
                             break;
-                        case 0x01:
+                        case 0b01:
                             cpuState.Registers.DE++;
                             break;
-                        case 0x10:
+                        case 0b10:
                             cpuState.Registers.HL++;
                             break;
-                        case 0x11:
+                        case 0b11:
                             cpuState.StackPointer++;
                             break;
                     }

@@ -35,25 +35,25 @@ namespace BremuGb.Cpu.Instructions
         {
             switch(_registerBits)
             {
-                case 0x00:
+                case 0b00:
                     if (isLsb)
                         cpuState.Registers.C = data;
                     else
                         cpuState.Registers.B = data;
                     break;
-                case 0x01:
+                case 0b01:
                     if (isLsb)
                         cpuState.Registers.E = data;
                     else
                         cpuState.Registers.D = data;
                     break;
-                case 0x10:
+                case 0b10:
                     if (isLsb)
                         cpuState.Registers.L = data;
                     else
                         cpuState.Registers.H = data;
                     break;
-                case 0x11:
+                case 0b11:
                     if (isLsb)
                         cpuState.Registers.F = data;
                     else
