@@ -1,5 +1,4 @@
-﻿
-using BremuGb.Memory;
+﻿using BremuGb.Memory;
 using BremuGb.Common.Constants;
 
 namespace BremuGb.Cpu

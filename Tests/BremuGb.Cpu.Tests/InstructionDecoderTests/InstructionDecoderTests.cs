@@ -10,6 +10,7 @@ namespace BremuGb.Cpu.Tests
         [Test]
         public void All_non_forbidden_instructions_are_implemented()
         {
+            //instructions without prefix
             for (ushort opcode = 0x00; opcode <= 0xFF; opcode++)
             {
                 if (opcode == 0xD3 || opcode == 0xE3 || opcode == 0xE4 || opcode == 0xF4
@@ -18,7 +19,13 @@ namespace BremuGb.Cpu.Tests
                     continue;
 
                 Assert.DoesNotThrow(() => InstructionDecoder.GetInstructionFromOpcode((byte)opcode));
-            }          
+            }
+
+            //prefixed instructions
+            for (ushort opcode = 0x00; opcode <= 0xFF; opcode++)
+            {
+                Assert.DoesNotThrow(() => InstructionDecoder.GetPrefixedInstructionFromOpcode((byte)opcode));
+            }
         }
 
         [Test]

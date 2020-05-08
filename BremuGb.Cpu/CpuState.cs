@@ -1,5 +1,4 @@
-﻿
-namespace BremuGb.Cpu
+﻿namespace BremuGb.Cpu
 {
     public class CpuState : ICpuState
     {

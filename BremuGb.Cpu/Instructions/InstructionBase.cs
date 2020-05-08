@@ -1,4 +1,5 @@
 ﻿using System;
+
 using BremuGb.Memory;
 
 namespace BremuGb.Cpu.Instructions

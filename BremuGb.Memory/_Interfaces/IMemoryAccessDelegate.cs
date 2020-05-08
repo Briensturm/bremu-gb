@@ -1,7 +1,4 @@
-﻿
-using System.Net.Sockets;
-
-namespace BremuGb.Memory
+﻿namespace BremuGb.Memory
 {
     public interface IMemoryAccessDelegate
     {

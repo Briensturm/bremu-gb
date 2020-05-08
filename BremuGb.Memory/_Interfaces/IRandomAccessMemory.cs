@@ -1,5 +1,4 @@
-﻿
-namespace BremuGb.Memory
+﻿namespace BremuGb.Memory
 {
     public interface IRandomAccessMemory
     {

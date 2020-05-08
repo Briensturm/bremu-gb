@@ -1,5 +1,5 @@
-﻿
-using System;
+﻿using System;
+
 using BremuGb.Cpu.Instructions;
 
 namespace BremuGb.Cpu
@@ -101,6 +101,15 @@ namespace BremuGb.Cpu
 
         public static IInstruction GetPrefixedInstructionFromOpcode(byte opcode)
         {
+            if ((opcode & 0xC0) == 0x40 && (opcode & 0x07) != 0x06)
+                return new BITNR8(opcode);
+
+            if ((opcode & 0xC0) == 0xC0 && (opcode & 0x07) != 0x06)
+                return new SETNR8(opcode);
+
+            if ((opcode & 0xC0) == 0x80 && (opcode & 0x07) != 0x06)
+                return new RESNR8(opcode);
+
             throw new NotImplementedException();
         }
     }
