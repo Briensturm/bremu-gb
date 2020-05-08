@@ -15,11 +15,16 @@ namespace BremuGb.Memory
         public MainMemory()
         {
             //sample program
-            _undelegatedMemory.Add(0x0100, 0x00);
-            _undelegatedMemory.Add(0x0101, 0x48);
-            _undelegatedMemory.Add(0x0102, 0xC3);
-            _undelegatedMemory.Add(0x0103, 0x00);
-            _undelegatedMemory.Add(0x0104, 0x01);
+            _undelegatedMemory.Add(0x0100, 0x06); // LD B,D8
+            _undelegatedMemory.Add(0x0101, 0x00); // initial data for B
+            _undelegatedMemory.Add(0x0102, 0x78); // LD A,B
+            _undelegatedMemory.Add(0x0103, 0x0E); // LD C,D8
+            _undelegatedMemory.Add(0x0104, 0x01); // data
+            _undelegatedMemory.Add(0x0105, 0x41); // LD B,C
+            _undelegatedMemory.Add(0x0106, 0x80); // ADD A,B
+            _undelegatedMemory.Add(0x0107, 0xC3); // JP D16
+            _undelegatedMemory.Add(0x0108, 0x06); // jump address lsb
+            _undelegatedMemory.Add(0x0109, 0x01); // jump address msb
         }
 
         public byte ReadByte(ushort address)

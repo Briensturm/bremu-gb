@@ -9,7 +9,7 @@ namespace BremuGb.Cpu
             get
             {
                 return (byte)(((ZeroFlag ? 1 : 0) << 7) |
-                              ((AddSubFlag ? 1 : 0) << 6) |
+                              ((SubtractionFlag ? 1 : 0) << 6) |
                               ((HalfCarryFlag ? 1 : 0) << 5) |
                               ((CarryFlag ? 1 : 0) << 4));
             }
@@ -17,7 +17,7 @@ namespace BremuGb.Cpu
             set
             {
                 ZeroFlag = (value & 0x80) == 0x80;
-                AddSubFlag = (value & 0x40) == 0x40;
+                SubtractionFlag = (value & 0x40) == 0x40;
                 HalfCarryFlag = (value & 0x20) == 0x20;
                 CarryFlag = (value & 0x10) == 0x10;
             }
@@ -71,7 +71,7 @@ namespace BremuGb.Cpu
         public bool HalfCarryFlag { get; set; }
         public bool CarryFlag { get; set; }
         public bool ZeroFlag { get; set; }
-        public bool AddSubFlag { get; set; }
+        public bool SubtractionFlag { get; set; }
 
         public ushort this[int index]
         {
@@ -138,7 +138,7 @@ namespace BremuGb.Cpu
             HalfCarryFlag = true;
             CarryFlag = true;
             ZeroFlag = true;
-            AddSubFlag = false;
+            SubtractionFlag = false;
         }
     }
 }

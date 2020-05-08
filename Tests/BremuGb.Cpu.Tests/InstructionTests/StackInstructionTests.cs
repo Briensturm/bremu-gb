@@ -12,7 +12,7 @@ namespace BremuGb.Cpu.Tests
         [TestCase(0xD5)]
         [TestCase(0xE5)]
         [TestCase(0xF5)]
-        public void TestPUSH(byte opcode)
+        public void Test_PUSH(byte opcode)
         {
             ushort sp = 0x4242;
 
@@ -69,7 +69,7 @@ namespace BremuGb.Cpu.Tests
         [TestCase(0xD1)]
         [TestCase(0xE1)]
         [TestCase(0xF1)]
-        public void TestPOP(byte opcode)
+        public void Test_POP(byte opcode)
         {
             ushort sp = 0x4242;
             byte lsbData = 0xFF;

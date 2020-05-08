@@ -1,7 +1,8 @@
-﻿using BremuGb.Cpu;
-using BremuGb.Memory;
-using System;
+﻿using System;
 using System.Diagnostics;
+
+using BremuGb.Cpu;
+using BremuGb.Memory;
 
 namespace bremugb.core
 {

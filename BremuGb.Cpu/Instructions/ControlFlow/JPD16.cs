@@ -3,7 +3,7 @@ using BremuGb.Memory;
 
 namespace BremuGb.Cpu.Instructions
 {
-    public class JPNN : InstructionBase
+    public class JPD16 : InstructionBase
     {
         private ushort _jumpAddress;
 

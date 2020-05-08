@@ -9,7 +9,7 @@ namespace BremuGb.Cpu.Instructions
 
         public override void ExecuteCycle(ICpuState cpuState, IRandomAccessMemory mainMemory)
         {
-            cpuState.Registers.AddSubFlag = false;
+            cpuState.Registers.SubtractionFlag = false;
             cpuState.Registers.HalfCarryFlag = false;
 
             cpuState.Registers.CarryFlag = !cpuState.Registers.CarryFlag;

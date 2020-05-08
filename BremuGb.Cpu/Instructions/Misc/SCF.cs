@@ -11,7 +11,7 @@ namespace BremuGb.Cpu.Instructions
         {
             cpuState.Registers.CarryFlag = true;
             cpuState.Registers.HalfCarryFlag = false;
-            cpuState.Registers.AddSubFlag = false;
+            cpuState.Registers.SubtractionFlag = false;
 
             base.ExecuteCycle(cpuState, mainMemory);
         }

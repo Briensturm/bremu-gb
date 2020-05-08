@@ -3,12 +3,12 @@ using BremuGb.Memory;
 
 namespace BremuGb.Cpu.Instructions
 {
-    public class INCRR : InstructionBase
+    public class INCR16 : InstructionBase
     {
         private byte _registerBits;
         protected override int InstructionLength => 2;
 
-        public INCRR(byte opcode) : base(opcode)
+        public INCR16(byte opcode) : base(opcode)
         {
             _registerBits = (byte)((opcode >> 4) & 0x03);
         }

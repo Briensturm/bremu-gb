@@ -11,4 +11,8 @@
     <ProjectReference Include="..\BremuGb.Memory\BremuGb.Memory.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Instructions\Bit\" />
+  </ItemGroup>
+
 </Project>

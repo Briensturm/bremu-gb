@@ -3,11 +3,11 @@ using BremuGb.Memory;
 
 namespace BremuGb.Cpu.Instructions
 {
-    public class LDRR : InstructionBase
+    public class LDR8R8 : InstructionBase
     {
         protected override int InstructionLength => 1;
 
-        public LDRR(byte opcode) : base(opcode)
+        public LDR8R8(byte opcode) : base(opcode)
         {
         }
 

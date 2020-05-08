@@ -3,7 +3,7 @@ using BremuGb.Memory;
 
 namespace BremuGb.Cpu.Instructions
 {
-    public class DECHL : InstructionBase
+    public class DEC_HL_ : InstructionBase
     {
         private byte _currentData;
         private byte _decrementedData;
@@ -22,7 +22,7 @@ namespace BremuGb.Cpu.Instructions
                     break;
                 case 1:
                     cpuState.Registers.ZeroFlag = _decrementedData == 0;
-                    cpuState.Registers.AddSubFlag = true;
+                    cpuState.Registers.SubtractionFlag = true;
                     cpuState.Registers.HalfCarryFlag = (_currentData & 0x0F) == 0;
                     break;
             }

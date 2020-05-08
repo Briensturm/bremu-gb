@@ -8,15 +8,23 @@ namespace BremuGb.Cpu
     {
         public static IInstruction GetInstructionFromOpcode(byte opcode)
         {
-            //rewrite this expression
             if ((opcode >> 6) == 0x01 && (opcode & 0x07) != 0x06 && (opcode & 0x38) != 0x30)
-                return new LDRR(opcode);
+                return new LDR8R8(opcode);
 
-            if((opcode & 0xC7) == 0x04 && (opcode & 0x38) != 0x30)
-                return new INCR(opcode);
+            if ((opcode & 0xC7) == 0x06 && opcode != 0x36)
+                return new LDR8D8(opcode);
+
+            if ((opcode & 0xF8) == 0x80 && opcode != 0x86)
+                return new ADDAR8(opcode);
+
+            if ((opcode & 0xF8) == 0x88 && opcode != 0x8E)
+                return new ADCAR8(opcode);
+
+            if ((opcode & 0xC7) == 0x04 && (opcode & 0x38) != 0x30)
+                return new INCR8(opcode);
 
             if ((opcode & 0xC7) == 0x05 && (opcode & 0x38) != 0x30)
-                return new DECR(opcode);
+                return new DECR8(opcode);
 
             if ((opcode & 0xCF) == 0xC5)
                 return new PUSH(opcode);
@@ -25,10 +33,10 @@ namespace BremuGb.Cpu
                 return new POP(opcode);
 
             if ((opcode & 0xCF) == 0x03)
-                return new INCRR(opcode);
+                return new INCR16(opcode);
 
             if ((opcode & 0xCF) == 0x0B)
-                return new DECRR(opcode);
+                return new DECR16(opcode);
 
             if ((opcode & 0xC7) == 0xC7)
                 return new RST(opcode);
@@ -45,6 +53,9 @@ namespace BremuGb.Cpu
             if ((opcode & 0xE7) == 0x20)
                 return new JRCC(opcode);
 
+            if ((opcode & 0xCF) == 0x01)
+                return new LDR16N16(opcode);
+
             switch (opcode)
             {
                 case 0x00:
@@ -56,9 +67,11 @@ namespace BremuGb.Cpu
                 case 0x2F:
                     return new CPL();
                 case 0x34:
-                    return new INCHL();
+                    return new INC_HL_();
                 case 0x35:
-                    return new DECHL();
+                    return new DEC_HL_();
+                case 0x36:
+                    return new LD_HL_D8();
                 case 0x37:
                     return new SCF();
                 case 0x3F:
@@ -66,7 +79,7 @@ namespace BremuGb.Cpu
                 case 0x76:
                     return new HALT();
                 case 0xC3:
-                    return new JPNN();
+                    return new JPD16();
                 case 0xC9:
                     return new RET();
                 case 0xCB:
