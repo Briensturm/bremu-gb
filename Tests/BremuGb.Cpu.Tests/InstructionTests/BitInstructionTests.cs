@@ -98,6 +98,40 @@ namespace BremuGb.Cpu.Tests
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
+        [Test, Combinatorial]
+        public void Test_BITN_HL_([Values(0x46, 0x56, 0x66, 0x76, 0x4E, 0x5E, 0x6E, 0x7E)] byte opcode,
+                              [Values(0x00, 0xFF)] byte data)
+        {
+            ushort hl = 0x4242;
+
+            var expectedState = new CpuState();
+            expectedState.Registers.HL = hl;
+            expectedState.Registers.HalfCarryFlag = true;
+
+
+            var actualState = new CpuState();
+            actualState.Registers.HL = hl;
+            actualState.Registers.SubtractionFlag = true;
+
+            var bitIndex = (opcode & 0x38) >> 3;
+            var registerIndex = opcode & 0x07;
+
+            expectedState.Registers.ZeroFlag = ((byte)(data >> bitIndex) & 0x01) == 0;
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+            memoryMock.Setup(m => m.ReadByte(hl)).Returns(data);
+
+            var instruction = new BITN_HL_(opcode);
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            //assert
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
         [TestCase(0xC0)]
         [TestCase(0xC1)]
         [TestCase(0xC2)]
@@ -262,6 +296,76 @@ namespace BremuGb.Cpu.Tests
             //assert
             TestHelper.ValidateCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
+        [TestCase(0x86)]
+        [TestCase(0x96)]
+        [TestCase(0xA6)]
+        [TestCase(0xB6)]
+        [TestCase(0x8E)]
+        [TestCase(0x9E)]
+        [TestCase(0xAE)]
+        [TestCase(0xBE)]
+        public void Test_RESN_HL_(byte opcode)
+        {
+            byte data = 0xFF;
+            ushort hl = 0x4242;           
+
+            var actualState = new CpuState();
+            actualState.Registers.HL = hl;
+
+            var expectedState = new CpuState();
+            expectedState.Registers.HL = hl;
+
+            var bitIndex = (opcode & 0x38) >> 3;            
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+            memoryMock.Setup(m => m.ReadByte(hl)).Returns(data);
+
+            var instruction = new RESN_HL_(opcode);
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            //assert
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(hl, (byte)(data & ~(0x01 << bitIndex))), Times.Once);
+        }
+
+        [TestCase(0xC6)]
+        [TestCase(0xD6)]
+        [TestCase(0xE6)]
+        [TestCase(0xF6)]
+        [TestCase(0xCE)]
+        [TestCase(0xDE)]
+        [TestCase(0xEE)]
+        [TestCase(0xFE)]
+        public void Test_SETN_HL_(byte opcode)
+        {
+            byte data = 0x00;
+            ushort hl = 0x4242;
+
+            var actualState = new CpuState();
+            actualState.Registers.HL = hl;
+
+            var expectedState = new CpuState();
+            expectedState.Registers.HL = hl;
+
+            var bitIndex = (opcode & 0x38) >> 3;
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+            memoryMock.Setup(m => m.ReadByte(hl)).Returns(data);
+
+            var instruction = new SETN_HL_(opcode);
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            //assert
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(hl, (byte)(data | (0x01 << bitIndex))), Times.Once);
         }
     }
 }

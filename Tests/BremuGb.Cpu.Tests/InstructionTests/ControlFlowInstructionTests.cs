@@ -40,7 +40,7 @@ namespace BremuGb.Cpu.Tests
             memoryMock.Verify(m => m.WriteByte((ushort)(sp - 2), (byte)((pc+2) & 0x00FF)), Times.Once);
         }
 
-        [Test]
+        [Test, Combinatorial]
         public void Test_CALLCC([Values(0xC4, 0xD4, 0xCC, 0xDC)] byte opcode,
                               [Values(0x0, 0x10, 0x20, 0x30, 0x40, 0x50, 0x60,
                                 0x70, 0x80, 0x90, 0xA0, 0xB0, 0xC0, 0xD0, 0xE0, 0xF0)] byte flags)

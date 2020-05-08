@@ -110,6 +110,23 @@ namespace BremuGb.Cpu
             if ((opcode & 0xC0) == 0x80 && (opcode & 0x07) != 0x06)
                 return new RESNR8(opcode);
 
+            if ((opcode & 0xC0) == 0x80 && (opcode & 0x07) == 0x06)
+                return new RESN_HL_(opcode);
+
+            if ((opcode & 0xC0) == 0xC0 && (opcode & 0x07) == 0x06)
+                return new SETN_HL_(opcode);
+
+            if ((opcode & 0xC0) == 0x40 && (opcode & 0x07) == 0x06)
+                return new BITN_HL_(opcode);
+
+            if ((opcode & 0xF8) == 0 && opcode != 0x06)
+                return new RLCR8(opcode);
+
+            if ((opcode & 0xF8) == 0x10 && opcode != 0x16)
+                return new RLR8(opcode);
+
+            //TODO: other shift, rotate & swap
+
             throw new NotImplementedException();
         }
     }
