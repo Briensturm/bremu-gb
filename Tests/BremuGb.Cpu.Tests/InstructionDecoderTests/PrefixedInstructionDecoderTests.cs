@@ -6,6 +6,15 @@ namespace BremuGb.Cpu.Tests
 {
     public class PrefixedInstructionDecoderTests
     {
+        [Test]
+        public void All_prefixed_instructions_are_implemented()
+        {
+            for (ushort opcode = 0x00; opcode <= 0xFF; opcode++)
+            {
+                Assert.DoesNotThrow(() => InstructionDecoder.GetPrefixedInstructionFromOpcode((byte)opcode));
+            }
+        }
+
         [TestCase(0x40)]
         [TestCase(0x41)]
         [TestCase(0x42)]

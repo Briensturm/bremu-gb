@@ -39,6 +39,31 @@ namespace BremuGb.Cpu.Tests
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
+        [Test]
+        public void Test_RLCA()
+        {
+            var actualState = new CpuState();
+            actualState.Registers.A = 0x80;
+            actualState.Registers.ZeroFlag = true;
+            actualState.Registers.SubtractionFlag = true;
+            actualState.Registers.HalfCarryFlag = true;
+
+            var expectedState = new CpuState();
+            expectedState.Registers.A = 0x01;
+            expectedState.Registers.CarryFlag = true;
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+
+            var instruction = new RLCA();
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
         [TestCase(0x10)]
         [TestCase(0x11)]
         [TestCase(0x12)]
@@ -63,6 +88,31 @@ namespace BremuGb.Cpu.Tests
             var memoryMock = new Mock<IRandomAccessMemory>();
 
             var instruction = new RLR8(opcode);
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
+        [Test]
+        public void Test_RLA()
+        {
+            var actualState = new CpuState();
+            actualState.Registers.A = 0x08;
+            actualState.Registers.ZeroFlag = true;
+            actualState.Registers.SubtractionFlag = true;
+            actualState.Registers.HalfCarryFlag = true;
+            actualState.Registers.CarryFlag = true;
+
+            var expectedState = new CpuState();
+            expectedState.Registers.A = 0x11;
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+
+            var instruction = new RLA();
 
             //act
             while (!instruction.IsFetchNecessary())
@@ -105,6 +155,31 @@ namespace BremuGb.Cpu.Tests
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
+        [Test]
+        public void Test_RRCA()
+        {
+            var actualState = new CpuState();
+            actualState.Registers.A = 0x01;
+            actualState.Registers.ZeroFlag = true;
+            actualState.Registers.SubtractionFlag = true;
+            actualState.Registers.HalfCarryFlag = true;
+
+            var expectedState = new CpuState();
+            expectedState.Registers.A = 0x80;
+            expectedState.Registers.CarryFlag = true;
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+
+            var instruction = new RRCA();
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
         [TestCase(0x18)]
         [TestCase(0x19)]
         [TestCase(0x1A)]
@@ -129,6 +204,31 @@ namespace BremuGb.Cpu.Tests
             var memoryMock = new Mock<IRandomAccessMemory>();
 
             var instruction = new RRR8(opcode);
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
+        [Test]
+        public void Test_RRA()
+        {
+            var actualState = new CpuState();
+            actualState.Registers.A = 0x81;
+            actualState.Registers.ZeroFlag = true;
+            actualState.Registers.SubtractionFlag = true;
+            actualState.Registers.HalfCarryFlag = true;
+
+            var expectedState = new CpuState();
+            expectedState.Registers.A = 0x40;
+            expectedState.Registers.CarryFlag = true;
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+
+            var instruction = new RRA();
 
             //act
             while (!instruction.IsFetchNecessary())

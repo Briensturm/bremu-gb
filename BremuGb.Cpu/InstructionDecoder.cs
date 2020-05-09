@@ -60,10 +60,18 @@ namespace BremuGb.Cpu
             {
                 case 0x00:
                     return new NOP();
+                case 0x07:
+                    return new RLCA();
+                case 0x0F:
+                    return new RRCA();
                 case 0x10:
                     return new STOP();
+                case 0x17:
+                    return new RLA();
                 case 0x18:
                     return new JR();
+                case 0x1F:
+                    return new RRA();
                 case 0x2F:
                     return new CPL();
                 case 0x34:
