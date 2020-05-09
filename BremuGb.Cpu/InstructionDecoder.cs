@@ -125,9 +125,45 @@ namespace BremuGb.Cpu
             if ((opcode & 0xF8) == 0x10 && opcode != 0x16)
                 return new RLR8(opcode);
 
-            //TODO: other shift, rotate & swap
+            if ((opcode & 0xF8) == 0x20 && opcode != 0x26)
+                return new SLAR8(opcode);
 
-            throw new NotImplementedException();
+            if ((opcode & 0xF8) == 0x30 && opcode != 0x36)
+                return new SWAPR8(opcode);
+
+            if ((opcode & 0xF8) == 0x08 && opcode != 0x0E)
+                return new RRCR8(opcode);
+
+            if ((opcode & 0xF8) == 0x18 && opcode != 0x1E)
+                return new RRR8(opcode);
+
+            if ((opcode & 0xF8) == 0x28 && opcode != 0x2E)
+                return new SRAR8(opcode);
+
+            if ((opcode & 0xF8) == 0x38 && opcode != 0x3E)
+                return new SRLR8(opcode);
+
+            switch(opcode)
+            {
+                case 0x06:
+                    return new RLC_HL_();
+                case 0x16:
+                    return new RL_HL_();
+                case 0x26:
+                    return new SLA_HL_();
+                case 0x36:
+                    return new SWAP_HL_();
+                case 0x0E:
+                    return new RRC_HL_();
+                case 0x1E:
+                    return new RR_HL_();
+                case 0x2E:
+                    return new SRA_HL_();
+                case 0x3E:
+                    return new SRL_HL_();
+                default:
+                    throw new InvalidOperationException($"Unknown prefixed opcode, unable to decode: 0x{opcode:X2}");
+            }            
         }
     }
 }
