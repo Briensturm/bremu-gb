@@ -1,10 +1,12 @@
-﻿using NUnit.Framework;
+﻿using BremuGb.Cpu.Instructions;
+using NUnit.Framework;
+using System;
 
 namespace BremuGb.Cpu.Tests
 {
     internal static class TestHelper
     {
-        internal static void ValidateCpuState(ICpuState expectedState, ICpuState actualState)
+        internal static void AssertCpuState(ICpuState expectedState, ICpuState actualState)
         {
             Assert.AreEqual(expectedState.StackPointer, actualState.StackPointer, "Stack pointer does not contain the expected address");
             Assert.AreEqual(expectedState.ProgramCounter, actualState.ProgramCounter, "Program counter does not contain the expected address");

@@ -35,7 +35,7 @@ namespace BremuGb.Cpu.Tests
             while (!instruction.IsFetchNecessary())
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte((ushort)(sp - 1), (byte)((pc+2) >> 8)), Times.Once);
             memoryMock.Verify(m => m.WriteByte((ushort)(sp - 2), (byte)((pc+2) & 0x00FF)), Times.Once);
         }
@@ -116,7 +116,7 @@ namespace BremuGb.Cpu.Tests
                 memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
             }
 
-            TestHelper.ValidateCpuState(expectedState, actualState);            
+            TestHelper.AssertCpuState(expectedState, actualState);            
         }
 
         [Test]
@@ -143,7 +143,7 @@ namespace BremuGb.Cpu.Tests
             while (!instruction.IsFetchNecessary())
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -179,7 +179,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
             }
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -247,7 +247,7 @@ namespace BremuGb.Cpu.Tests
             else
                 Assert.AreEqual(2, cycleCount, $"Unexpected cycle count for RETCC instruction, opcode: 0x{opcode:X2} F: 0x{flags:X2}");
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -282,7 +282,7 @@ namespace BremuGb.Cpu.Tests
             while (!instruction.IsFetchNecessary())
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte((ushort)(sp - 1), (byte)(pc >> 8)), Times.Once);
             memoryMock.Verify(m => m.WriteByte((ushort)(sp - 2), (byte)(pc & 0x00FF)), Times.Once);
         }
@@ -348,7 +348,7 @@ namespace BremuGb.Cpu.Tests
             else
                 Assert.AreEqual(3, cycleCount, $"Unexpected cycle count for JPCC instruction, opcode: 0x{opcode:X2} F: 0x{flags:X2}");
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -375,7 +375,7 @@ namespace BremuGb.Cpu.Tests
             while (!instruction.IsFetchNecessary())
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -399,7 +399,7 @@ namespace BremuGb.Cpu.Tests
             while (!instruction.IsFetchNecessary())
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -424,7 +424,7 @@ namespace BremuGb.Cpu.Tests
             while (!instruction.IsFetchNecessary())
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -487,7 +487,7 @@ namespace BremuGb.Cpu.Tests
             else
                 Assert.AreEqual(2, cycleCount, $"Unexpected cycle count for JRCC instruction, opcode: 0x{opcode:X2} F: 0x{flags:X2}");
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
     }

@@ -603,6 +603,184 @@ namespace BremuGb.Cpu.Tests
             Assert.IsInstanceOf<XORAR8>(instruction);
         }
 
+        [Test]
+        public void Decode_LD_BC_A()
+        {
+            byte opcode = 0x02;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LD_BC_A>(instruction);
+        }
+
+        [Test]
+        public void Decode_LD_DE_A()
+        {
+            byte opcode = 0x12;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LD_DE_A>(instruction);
+        }
+
+        [Test]
+        public void Decode_LD_HLP_A()
+        {
+            byte opcode = 0x22;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LD_HLP_A>(instruction);
+        }
+
+        [Test]
+        public void Decode_LD_HLM_A()
+        {
+            byte opcode = 0x32;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LD_HLM_A>(instruction);
+        }
+
+        [Test]
+        public void Decode_LDA_BC_()
+        {
+            byte opcode = 0x0A;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LDA_BC_>(instruction);
+        }
+
+        [Test]
+        public void Decode_LDA_DE_()
+        {
+            byte opcode = 0x1A;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LDA_DE_>(instruction);
+        }
+
+        [Test]
+        public void Decode_LDA_HLP_()
+        {
+            byte opcode = 0x2A;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LDA_HLP_>(instruction);
+        }
+
+        [Test]
+        public void Decode_LDA_HLM_()
+        {
+            byte opcode = 0x3A;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LDA_HLM_>(instruction);
+        }
+
+        [Test]
+        public void Decode_LDH_D8_A()
+        {
+            byte opcode = 0xE0;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LDH_D8_A>(instruction);
+        }
+
+        [Test]
+        public void Decode_LDHA_D8_()
+        {
+            byte opcode = 0xF0;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LDHA_D8_>(instruction);
+        }
+
+        [Test]
+        public void Decode_LDH_C_A()
+        {
+            byte opcode = 0xE2;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LDH_C_A>(instruction);
+        }
+
+        [Test]
+        public void Decode_LDHA_C_()
+        {
+            byte opcode = 0xF2;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LDHA_C_>(instruction);
+        }
+
+        [Test]
+        public void Decode_LDHLSPD8()
+        {
+            byte opcode = 0xF8;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LDHLSPD8>(instruction);
+        }
+
+        [Test]
+        public void Decode_LD_D16_A()
+        {
+            byte opcode = 0xEA;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LD_D16_A>(instruction);
+        }
+
+        [Test]
+        public void Decode_LDA_D16_()
+        {
+            byte opcode = 0xFA;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LDA_D16_>(instruction);
+        }
+
+        [TestCase(0x70)]
+        [TestCase(0x71)]
+        [TestCase(0x72)]
+        [TestCase(0x73)]
+        [TestCase(0x74)]
+        [TestCase(0x75)]
+        [TestCase(0x77)]
+        public void Decode_LD_HL_R8(byte opcode)
+        {
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LD_HL_R8>(instruction);
+        }
+
+        [TestCase(0x46)]
+        [TestCase(0x56)]
+        [TestCase(0x66)]
+        [TestCase(0x4E)]
+        [TestCase(0x5E)]
+        [TestCase(0x6E)]
+        [TestCase(0x7E)]
+        public void Decode_LDR8_HL_(byte opcode)
+        {
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LDR8_HL_>(instruction);
+        }
+
         [TestCase(0xD3)]
         [TestCase(0xE3)]
         [TestCase(0xE4)]

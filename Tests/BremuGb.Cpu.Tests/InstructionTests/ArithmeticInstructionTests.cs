@@ -44,7 +44,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -79,7 +79,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -114,7 +114,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -154,7 +154,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -189,7 +189,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -224,7 +224,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -273,7 +273,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -308,7 +308,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -343,7 +343,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -389,7 +389,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -431,7 +431,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -460,7 +460,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(address, (byte)(data + 1)), Times.Once());
         }
 
@@ -489,7 +489,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(address, (byte)(data - 1)), Times.Once());
         }
 
@@ -521,7 +521,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -555,7 +555,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -602,7 +602,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -649,7 +649,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
     }

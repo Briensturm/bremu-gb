@@ -42,7 +42,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
 
             switch (opcode)
             {
@@ -109,7 +109,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
     }

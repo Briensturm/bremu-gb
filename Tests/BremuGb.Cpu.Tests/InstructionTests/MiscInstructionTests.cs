@@ -21,7 +21,7 @@ namespace BremuGb.Cpu.Tests
             while (!instruction.IsFetchNecessary())
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -43,7 +43,7 @@ namespace BremuGb.Cpu.Tests
             while (!instruction.IsFetchNecessary())
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -62,7 +62,7 @@ namespace BremuGb.Cpu.Tests
             while (!instruction.IsFetchNecessary())
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -81,7 +81,7 @@ namespace BremuGb.Cpu.Tests
             while (!instruction.IsFetchNecessary())
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -100,7 +100,7 @@ namespace BremuGb.Cpu.Tests
             while (!instruction.IsFetchNecessary())
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -122,7 +122,7 @@ namespace BremuGb.Cpu.Tests
             while (!instruction.IsFetchNecessary())
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -144,7 +144,7 @@ namespace BremuGb.Cpu.Tests
             while (!instruction.IsFetchNecessary())
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -166,7 +166,7 @@ namespace BremuGb.Cpu.Tests
             while (!instruction.IsFetchNecessary())
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -189,7 +189,7 @@ namespace BremuGb.Cpu.Tests
             while (!instruction.IsFetchNecessary())
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
     }

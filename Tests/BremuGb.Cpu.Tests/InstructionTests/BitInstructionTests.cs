@@ -94,7 +94,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -128,7 +128,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -207,7 +207,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -294,7 +294,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
@@ -329,7 +329,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(hl, (byte)(data & ~(0x01 << bitIndex))), Times.Once);
         }
 
@@ -364,7 +364,7 @@ namespace BremuGb.Cpu.Tests
                 instruction.ExecuteCycle(actualState, memoryMock.Object);
 
             //assert
-            TestHelper.ValidateCpuState(expectedState, actualState);
+            TestHelper.AssertCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(hl, (byte)(data | (0x01 << bitIndex))), Times.Once);
         }
     }
