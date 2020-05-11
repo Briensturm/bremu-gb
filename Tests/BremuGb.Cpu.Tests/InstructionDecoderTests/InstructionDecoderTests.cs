@@ -438,7 +438,7 @@ namespace BremuGb.Cpu.Tests
         {
             var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
 
-            Assert.IsInstanceOf<LDR16N16>(instruction);
+            Assert.IsInstanceOf<LDR16D16>(instruction);
         }
 
         [Test]
@@ -479,6 +479,128 @@ namespace BremuGb.Cpu.Tests
             var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
 
             Assert.IsInstanceOf<RRA>(instruction);
+        }
+
+        [Test]
+        public void Decode_LD_D16_SP()
+        {
+            byte opcode = 0x08;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LD_D16_SP>(instruction);
+        }
+
+        [Test]
+        public void Decode_LDSPHL()
+        {
+            byte opcode = 0xF9;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<LDSPHL>(instruction);
+        }
+
+        [Test]
+        public void Decode_ANDA_HL_()
+        {
+            byte opcode = 0xA6;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<ANDA_HL_>(instruction);
+        }
+
+        [Test]
+        public void Decode_ORA_HL_()
+        {
+            byte opcode = 0xB6;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<ORA_HL_>(instruction);
+        }
+
+        [Test]
+        public void Decode_XORA_HL_()
+        {
+            byte opcode = 0xAE;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<XORA_HL_>(instruction);
+        }
+
+        [Test]
+        public void Decode_ANDAD8()
+        {
+            byte opcode = 0xE6;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<ANDAD8>(instruction);
+        }
+
+        [Test]
+        public void Decode_ORAD8()
+        {
+            byte opcode = 0xF6;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<ORAD8>(instruction);
+        }
+
+        [Test]
+        public void Decode_XORAD8()
+        {
+            byte opcode = 0xEE;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<XORAD8>(instruction);
+        }
+
+        [TestCase(0xA0)]
+        [TestCase(0xA1)]
+        [TestCase(0xA2)]
+        [TestCase(0xA3)]
+        [TestCase(0xA4)]
+        [TestCase(0xA5)]
+        [TestCase(0xA7)]
+        public void Decode_ANDAR8(byte opcode)
+        {
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<ANDAR8>(instruction);
+        }
+
+        [TestCase(0xB0)]
+        [TestCase(0xB1)]
+        [TestCase(0xB2)]
+        [TestCase(0xB3)]
+        [TestCase(0xB4)]
+        [TestCase(0xB5)]
+        [TestCase(0xB7)]
+        public void Decode_ORAR8(byte opcode)
+        {
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<ORAR8>(instruction);
+        }
+
+        [TestCase(0xA8)]
+        [TestCase(0xA9)]
+        [TestCase(0xAA)]
+        [TestCase(0xAB)]
+        [TestCase(0xAC)]
+        [TestCase(0xAD)]
+        [TestCase(0xAF)]
+        public void Decode_XORAR8(byte opcode)
+        {
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<XORAR8>(instruction);
         }
 
         [TestCase(0xD3)]

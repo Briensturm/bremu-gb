@@ -120,7 +120,7 @@ namespace BremuGb.Cpu.Tests
             memoryMock.Setup(m => m.ReadByte(pc)).Returns(lsbData);
             memoryMock.Setup(m => m.ReadByte((ushort)(pc + 1))).Returns(msbData);
 
-            var instruction = new LDR16N16(opcode);
+            var instruction = new LDR16D16(opcode);
 
             //act
             while (!instruction.IsFetchNecessary())
@@ -156,6 +156,63 @@ namespace BremuGb.Cpu.Tests
 
             TestHelper.ValidateCpuState(expectedState, actualState);
             memoryMock.Verify(m => m.WriteByte(hl, data), Times.Once);
+        }
+
+        [Test]
+        public void Test_LD_D16_SP()
+        {
+            ushort pc = 0x1234;
+            ushort sp = 0x4321;
+            byte addressLsb = 0x42;
+            byte addressMsb = 0x43;
+
+            var actualState = new CpuState();
+            actualState.ProgramCounter = pc;
+            actualState.StackPointer = sp;
+
+            var expectedState = new CpuState();
+            expectedState.ProgramCounter = (ushort)(actualState.ProgramCounter + 2);
+            expectedState.StackPointer = sp;
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+            memoryMock.Setup(m => m.ReadByte(pc)).Returns(addressLsb);
+            memoryMock.Setup(m => m.ReadByte((ushort)(pc+1))).Returns(addressMsb);
+
+            var instruction = new LD_D16_SP();
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            TestHelper.ValidateCpuState(expectedState, actualState);
+
+            ushort targetAddress = (ushort)(addressLsb | (addressMsb << 8));
+            memoryMock.Verify(m => m.WriteByte(targetAddress, (byte)(expectedState.StackPointer)), Times.Once);
+            memoryMock.Verify(m => m.WriteByte((ushort)(targetAddress+1), (byte)(expectedState.StackPointer >> 8)), Times.Once);
+        }
+
+        [Test]
+        public void Test_LDSPHL()
+        {
+            ushort hl = 0x1234;
+
+            var actualState = new CpuState();
+            actualState.Registers.HL = hl;
+
+            var expectedState = new CpuState();
+            expectedState.Registers.HL = hl;
+            expectedState.StackPointer = hl;
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+
+            var instruction = new LDSPHL();
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
         }
 
         [TestCase(0x06)]

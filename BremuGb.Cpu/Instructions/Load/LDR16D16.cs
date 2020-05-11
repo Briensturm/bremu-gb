@@ -2,13 +2,13 @@
 
 namespace BremuGb.Cpu.Instructions
 {
-    public class LDR16N16 : InstructionBase
+    public class LDR16D16 : InstructionBase
     {
         private byte _registerBits;
         private ushort _loadData;
         protected override int InstructionLength => 3;
 
-        public LDR16N16(byte opcode) : base(opcode)
+        public LDR16D16(byte opcode) : base(opcode)
         {
             _registerBits = (byte)((opcode >> 4) & 0x03);
         }

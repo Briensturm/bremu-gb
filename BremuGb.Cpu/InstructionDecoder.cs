@@ -26,6 +26,15 @@ namespace BremuGb.Cpu
             if ((opcode & 0xC7) == 0x05 && (opcode & 0x38) != 0x30)
                 return new DECR8(opcode);
 
+            if ((opcode & 0xF8) == 0xA0 && opcode != 0xA6)
+                return new ANDAR8(opcode);
+
+            if ((opcode & 0xF8) == 0xB0 && opcode != 0xB6)
+                return new ORAR8(opcode);
+
+            if ((opcode & 0xF8) == 0xA8 && opcode != 0xAE)
+                return new XORAR8(opcode);
+
             if ((opcode & 0xCF) == 0xC5)
                 return new PUSH(opcode);
 
@@ -54,7 +63,7 @@ namespace BremuGb.Cpu
                 return new JRCC(opcode);
 
             if ((opcode & 0xCF) == 0x01)
-                return new LDR16N16(opcode);
+                return new LDR16D16(opcode);
 
             switch (opcode)
             {
@@ -62,6 +71,8 @@ namespace BremuGb.Cpu
                     return new NOP();
                 case 0x07:
                     return new RLCA();
+                case 0x08:
+                    return new LD_D16_SP();
                 case 0x0F:
                     return new RRCA();
                 case 0x10:
@@ -86,6 +97,12 @@ namespace BremuGb.Cpu
                     return new CCF();
                 case 0x76:
                     return new HALT();
+                case 0xA6:
+                    return new ANDA_HL_();
+                case 0xAE:
+                    return new XORA_HL_();
+                case 0xB6:
+                    return new ORA_HL_();
                 case 0xC3:
                     return new JPD16();
                 case 0xC9:
@@ -96,10 +113,18 @@ namespace BremuGb.Cpu
                     return new CALL();
                 case 0xD9:
                     return new RETI();
+                case 0xE6:
+                    return new ANDAD8();
                 case 0xE9:
                     return new JPHL();
+                case 0xEE:
+                    return new XORAD8();
                 case 0xF3:
                     return new DI();
+                case 0xF6:
+                    return new ORAD8();
+                case 0xF9:
+                    return new LDSPHL();
                 case 0xFB:
                     return new EI();
                 default:

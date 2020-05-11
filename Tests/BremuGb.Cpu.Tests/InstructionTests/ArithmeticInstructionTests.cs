@@ -8,6 +8,345 @@ namespace BremuGb.Cpu.Tests
 {
     public class ArithmeticInstructionTests
     {
+        [TestCase(0xA0)]
+        [TestCase(0xA1)]
+        [TestCase(0xA2)]
+        [TestCase(0xA3)]
+        [TestCase(0xA4)]
+        [TestCase(0xA5)]
+        [TestCase(0xA7)]
+        public void Test_ANDAR8(byte opcode)
+        {
+            int registerIndex = opcode & 0x07;
+
+            byte a = 0b01010101;
+            byte data = 0b11110000;
+            byte result = 0b01010000;
+
+            var actualState = new CpuState();
+            actualState.Registers.SubtractionFlag = true;
+            actualState.Registers.CarryFlag = true;
+            actualState.Registers.ZeroFlag = true;
+            actualState.Registers.A = a;
+            actualState.Registers[registerIndex] = data;
+
+            var expectedState = new CpuState();
+            expectedState.Registers.HalfCarryFlag = true;
+            expectedState.Registers.A = result;
+            expectedState.Registers[registerIndex] = data;
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+
+            var instruction = new ANDAR8(opcode);
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            //assert
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
+        [Test]
+        public void Test_ANDAD8()
+        {
+            byte a = 0b01010101;
+            byte data = 0b11110000;
+            byte result = 0b01010000;
+
+            ushort pc = 0x4242;
+
+            var actualState = new CpuState();
+            actualState.Registers.SubtractionFlag = true;
+            actualState.Registers.CarryFlag = true;
+            actualState.Registers.ZeroFlag = true;
+            actualState.Registers.A = a;
+            actualState.ProgramCounter = pc;
+
+            var expectedState = new CpuState();
+            expectedState.Registers.HalfCarryFlag = true;
+            expectedState.Registers.A = result;
+            expectedState.ProgramCounter = (ushort)(actualState.ProgramCounter + 1);
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+            memoryMock.Setup(m => m.ReadByte(pc)).Returns(data);
+
+            var instruction = new ANDAD8();
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            //assert
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
+        [Test]
+        public void Test_ANDA_HL_()
+        {
+            byte a      = 0b01010101;
+            byte data   = 0b11110000;
+            byte result = 0b01010000;
+
+            ushort hl = 0x4242;
+
+            var actualState = new CpuState();
+            actualState.Registers.SubtractionFlag = true;
+            actualState.Registers.CarryFlag = true;
+            actualState.Registers.ZeroFlag = true;
+            actualState.Registers.A = a;
+            actualState.Registers.HL = hl;
+
+            var expectedState = new CpuState();
+            expectedState.Registers.HalfCarryFlag = true;
+            expectedState.Registers.A = result;
+            expectedState.Registers.HL = hl;
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+            memoryMock.Setup(m => m.ReadByte(hl)).Returns(data);
+
+            var instruction = new ANDA_HL_();
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            //assert
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
+        [TestCase(0xB0)]
+        [TestCase(0xB1)]
+        [TestCase(0xB2)]
+        [TestCase(0xB3)]
+        [TestCase(0xB4)]
+        [TestCase(0xB5)]
+        [TestCase(0xB7)]
+        public void Test_ORAR8(byte opcode)
+        {
+            int registerIndex = opcode & 0x07;
+
+            byte a = 0b01010101;
+            byte data = 0b11110000;
+            byte result = 0b11110101;
+
+            var actualState = new CpuState();
+            actualState.Registers.SubtractionFlag = true;
+            actualState.Registers.CarryFlag = true;
+            actualState.Registers.ZeroFlag = true;
+            actualState.Registers.HalfCarryFlag = true;
+            actualState.Registers.A = a;
+            actualState.Registers[registerIndex] = data;
+
+            var expectedState = new CpuState();            
+            expectedState.Registers.A = result;
+            expectedState.Registers[registerIndex] = data;
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+
+            var instruction = new ORAR8(opcode);
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            //assert
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
+        [Test]
+        public void Test_ORAD8()
+        {
+            byte a = 0b01010101;
+            byte data = 0b11110000;
+            byte result = 0b11110101;
+
+            ushort pc = 0x4242;
+
+            var actualState = new CpuState();
+            actualState.Registers.SubtractionFlag = true;
+            actualState.Registers.CarryFlag = true;
+            actualState.Registers.ZeroFlag = true;
+            actualState.Registers.HalfCarryFlag = true;
+            actualState.Registers.A = a;
+            actualState.ProgramCounter = pc;
+
+            var expectedState = new CpuState();
+            expectedState.Registers.A = result;
+            expectedState.ProgramCounter = (ushort)(actualState.ProgramCounter + 1);
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+            memoryMock.Setup(m => m.ReadByte(pc)).Returns(data);
+
+            var instruction = new ORAD8();
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            //assert
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
+        [Test]
+        public void Test_ORA_HL_()
+        {
+            byte a      = 0b01010101;
+            byte data   = 0b11110000;
+            byte result = 0b11110101;
+
+            ushort hl = 0x4242;
+
+            var actualState = new CpuState();
+            actualState.Registers.SubtractionFlag = true;
+            actualState.Registers.CarryFlag = true;
+            actualState.Registers.ZeroFlag = true;
+            actualState.Registers.HalfCarryFlag = true;
+            actualState.Registers.A = a;
+            actualState.Registers.HL = hl;
+
+            var expectedState = new CpuState();            
+            expectedState.Registers.A = result;
+            expectedState.Registers.HL = hl;
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+            memoryMock.Setup(m => m.ReadByte(hl)).Returns(data);
+
+            var instruction = new ORA_HL_();
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            //assert
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
+        [TestCase(0xA8)]
+        [TestCase(0xA9)]
+        [TestCase(0xAA)]
+        [TestCase(0xAB)]
+        [TestCase(0xAC)]
+        [TestCase(0xAD)]
+        [TestCase(0xAF)]
+        public void Test_XORAR8(byte opcode)
+        {
+            int registerIndex = opcode & 0x07;
+
+            byte a      = 0b01010101;
+            byte data   = 0b11110000;
+            byte result = 0b10100101;
+
+            var actualState = new CpuState();
+            actualState.Registers.SubtractionFlag = true;
+            actualState.Registers.CarryFlag = true;
+            actualState.Registers.ZeroFlag = true;
+            actualState.Registers.HalfCarryFlag = true;
+            actualState.Registers.A = a;
+            actualState.Registers[registerIndex] = data;
+
+            var expectedState = new CpuState();
+            expectedState.Registers.A = result;
+            expectedState.Registers[registerIndex] = data;
+
+            //handle case XORA A
+            if (opcode == 0xAF)
+            {
+                actualState.Registers.ZeroFlag = false;
+
+                expectedState.Registers.A = 0;
+                expectedState.Registers.ZeroFlag = true;
+            }
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+
+            var instruction = new XORAR8(opcode);
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            //assert
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
+        [Test]
+        public void Test_XORAD8()
+        {
+            byte a = 0b01010101;
+            byte data = 0b11110000;
+            byte result = 0b10100101;
+
+            ushort pc = 0x4242;
+
+            var actualState = new CpuState();
+            actualState.Registers.SubtractionFlag = true;
+            actualState.Registers.CarryFlag = true;
+            actualState.Registers.ZeroFlag = true;
+            actualState.Registers.HalfCarryFlag = true;
+            actualState.Registers.A = a;
+            actualState.ProgramCounter = pc;
+
+            var expectedState = new CpuState();
+            expectedState.Registers.A = result;
+            expectedState.ProgramCounter = (ushort)(actualState.ProgramCounter + 1);
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+            memoryMock.Setup(m => m.ReadByte(pc)).Returns(data);
+
+            var instruction = new XORAD8();
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            //assert
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
+        [Test]
+        public void Test_XORA_HL_()
+        {
+            byte a      = 0b01010101;
+            byte data   = 0b11110000;
+            byte result = 0b10100101;
+
+            ushort hl = 0x4242;
+
+            var actualState = new CpuState();
+            actualState.Registers.SubtractionFlag = true;
+            actualState.Registers.CarryFlag = true;
+            actualState.Registers.ZeroFlag = true;
+            actualState.Registers.HalfCarryFlag = true;
+            actualState.Registers.A = a;
+            actualState.Registers.HL = hl;
+
+            var expectedState = new CpuState();            
+            expectedState.Registers.A = result;
+            expectedState.Registers.HL = hl;
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+            memoryMock.Setup(m => m.ReadByte(hl)).Returns(data);
+
+            var instruction = new XORA_HL_();
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            //assert
+            TestHelper.ValidateCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
         [TestCase(0x80)]
         [TestCase(0x81)]
         [TestCase(0x82)]
