@@ -32,6 +32,42 @@ namespace BremuGb.Cpu.Tests
         }
 
         [Test]
+        public void Decode_SUBAD8()
+        {
+            byte opcode = 0xD6;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<SUBAD8>(instruction);
+        }
+
+        [Test]
+        public void Decode_SUBA_HL_()
+        {
+            byte opcode = 0x96;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<SUBA_HL_>(instruction);
+        }
+
+        [TestCase(0x90)]
+        [TestCase(0x91)]
+        [TestCase(0x92)]
+        [TestCase(0x93)]
+        [TestCase(0x94)]
+        [TestCase(0x95)]
+        [TestCase(0x97)]
+        public void Decode_SUBAR8(byte opcode)
+        {
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<SUBAR8>(instruction);
+        }
+
+
+
+        [Test]
         public void Decode_LD_HL_D8()
         {
             byte opcode = 0x36;
@@ -39,6 +75,26 @@ namespace BremuGb.Cpu.Tests
             var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
 
             Assert.IsInstanceOf<LD_HL_D8>(instruction);
+        }
+
+        [Test]
+        public void Decode_ADDAD8()
+        {
+            byte opcode = 0xC6;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<ADDAD8>(instruction);
+        }
+
+        [Test]
+        public void Decode_ADDA_HL_()
+        {
+            byte opcode = 0x86;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<ADDA_HL_>(instruction);
         }
 
         [TestCase(0x80)]
@@ -55,6 +111,26 @@ namespace BremuGb.Cpu.Tests
             Assert.IsInstanceOf<ADDAR8>(instruction);
         }
 
+        [Test]
+        public void Decode_ADCAD8()
+        {
+            byte opcode = 0xCE;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<ADCAD8>(instruction);
+        }
+
+        [Test]
+        public void Decode_ADCA_HL_()
+        {
+            byte opcode = 0x8E;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<ADCA_HL_>(instruction);
+        }
+
         [TestCase(0x88)]
         [TestCase(0x89)]
         [TestCase(0x8A)]
@@ -67,6 +143,74 @@ namespace BremuGb.Cpu.Tests
             var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
 
             Assert.IsInstanceOf<ADCAR8>(instruction);
+        }
+
+        [Test]
+        public void Decode_SBCAD8()
+        {
+            byte opcode = 0xDE;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<SBCAD8>(instruction);
+        }
+
+        [Test]
+        public void Decode_SBCA_HL_()
+        {
+            byte opcode = 0x9E;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<SBCA_HL_>(instruction);
+        }
+
+        [TestCase(0x98)]
+        [TestCase(0x99)]
+        [TestCase(0x9A)]
+        [TestCase(0x9B)]
+        [TestCase(0x9C)]
+        [TestCase(0x9D)]
+        [TestCase(0x9F)]
+        public void Decode_SBCAR8(byte opcode)
+        {
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<SBCAR8>(instruction);
+        }
+
+        [Test]
+        public void Decode_CPAD8()
+        {
+            byte opcode = 0xFE;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<CPAD8>(instruction);
+        }
+
+        [Test]
+        public void Decode_CPA_HL_()
+        {
+            byte opcode = 0xBE;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<CPA_HL_>(instruction);
+        }
+
+        [TestCase(0xB8)]
+        [TestCase(0xB9)]
+        [TestCase(0xBA)]
+        [TestCase(0xBB)]
+        [TestCase(0xBC)]
+        [TestCase(0xBD)]
+        [TestCase(0xBF)]
+        public void Decode_CPAR8(byte opcode)
+        {
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<CPAR8>(instruction);
         }
 
         [TestCase(0x06)]

@@ -40,6 +40,15 @@ namespace BremuGb.Cpu
             if ((opcode & 0xC7) == 0x46 && opcode != 0x76)
                 return new LDR8_HL_(opcode);
 
+            if ((opcode & 0xF8) == 0x90 && opcode != 0x96)
+                return new SUBAR8(opcode);
+
+            if ((opcode & 0xF8) == 0x98 && opcode != 0x9E)
+                return new SBCAR8(opcode);
+
+            if ((opcode & 0xF8) == 0xB8 && opcode != 0xBE)
+                return new CPAR8(opcode);
+
             if ((opcode & 0xCF) == 0xC5)
                 return new PUSH(opcode);
 
@@ -118,22 +127,40 @@ namespace BremuGb.Cpu
                     return new CCF();
                 case 0x76:
                     return new HALT();
+                case 0x86:
+                    return new ADDA_HL_();
+                case 0x8E:
+                    return new ADCA_HL_();
+                case 0x96:
+                    return new SUBA_HL_();
+                case 0x9E:
+                    return new SBCA_HL_();
                 case 0xA6:
                     return new ANDA_HL_();
                 case 0xAE:
                     return new XORA_HL_();
                 case 0xB6:
                     return new ORA_HL_();
+                case 0xBE:
+                    return new CPA_HL_();
                 case 0xC3:
                     return new JPD16();
+                case 0xC6:
+                    return new ADDAD8();
                 case 0xC9:
                     return new RET();
                 case 0xCB:
                     return new PREFIX();
                 case 0xCD:
                     return new CALL();
+                case 0xCE:
+                    return new ADCAD8();
+                case 0xD6:
+                    return new SUBAD8();
                 case 0xD9:
                     return new RETI();
+                case 0xDE:
+                    return new SBCAD8();
                 case 0xE0:
                     return new LDH_D8_A();
                 case 0xE2:
@@ -162,6 +189,8 @@ namespace BremuGb.Cpu
                     return new LDA_D16_();
                 case 0xFB:
                     return new EI();
+                case 0xFE:
+                    return new CPAD8();
                 default:
                     throw new InvalidOperationException($"Unknown opcode, unable to decode: 0x{opcode:X2}");
             }

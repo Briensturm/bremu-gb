@@ -2,11 +2,11 @@
 
 namespace BremuGb.Cpu.Instructions
 {
-    public class ADDAR8 : InstructionBase
+    public class SUBAR8 : InstructionBase
     {
         protected override int InstructionLength => 1;
 
-        public ADDAR8(byte opcode) : base(opcode)
+        public SUBAR8(byte opcode) : base(opcode)
         {
         }
 
@@ -14,14 +14,14 @@ namespace BremuGb.Cpu.Instructions
         {
             var registerIndex = _opcode & 0x07;
             var oldValue = cpuState.Registers.A;
-            byte addData = (byte)cpuState.Registers[registerIndex];
+            byte subData = (byte)cpuState.Registers[registerIndex];
 
-            cpuState.Registers.A += addData;
+            cpuState.Registers.A -= subData;
 
-            cpuState.Registers.SubtractionFlag = false;
+            cpuState.Registers.SubtractionFlag = true;
             cpuState.Registers.ZeroFlag = cpuState.Registers.A == 0;
-            cpuState.Registers.HalfCarryFlag = addData > (0xF - (oldValue & 0xF));
-            cpuState.Registers.CarryFlag = cpuState.Registers.A < oldValue;
+            cpuState.Registers.HalfCarryFlag = subData > (oldValue & 0xF);
+            cpuState.Registers.CarryFlag = subData > oldValue;
 
             base.ExecuteCycle(cpuState, mainMemory);
         }
