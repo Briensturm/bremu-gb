@@ -79,6 +79,9 @@ namespace BremuGb.Cpu
             if ((opcode & 0xCF) == 0x01)
                 return new LDR16D16(opcode);
 
+            if ((opcode & 0xCF) == 0x09)
+                return new ADDHLR16(opcode);
+
             switch (opcode)
             {
                 case 0x00:
@@ -107,6 +110,8 @@ namespace BremuGb.Cpu
                     return new RRA();
                 case 0x22:
                     return new LD_HLP_A();
+                case 0x27:
+                    return new DAA();
                 case 0x2A:
                     return new LDA_HLP_();
                 case 0x2F:
@@ -159,6 +164,8 @@ namespace BremuGb.Cpu
                     return new SUBAD8();
                 case 0xD9:
                     return new RETI();
+                case 0xE8:
+                    return new ADDSPS8();
                 case 0xDE:
                     return new SBCAD8();
                 case 0xE0:
@@ -182,7 +189,7 @@ namespace BremuGb.Cpu
                 case 0xF6:
                     return new ORAD8();
                 case 0xF8:
-                    return new LDHLSPD8();
+                    return new LDHLSPS8();
                 case 0xF9:
                     return new LDSPHL();
                 case 0xFA:

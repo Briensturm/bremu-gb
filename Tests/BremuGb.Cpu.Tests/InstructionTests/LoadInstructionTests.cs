@@ -694,7 +694,7 @@ namespace BremuGb.Cpu.Tests
         }
 
         [Test]
-        public void Test_LDHLSPD8()
+        public void Test_LDHLSPS8()
         {
             ushort pc = 0x1111;
             ushort sp = 0xFFFF;
@@ -716,7 +716,7 @@ namespace BremuGb.Cpu.Tests
             var memoryMock = new Mock<IRandomAccessMemory>();
             memoryMock.Setup(m => m.ReadByte(pc)).Returns(data);
 
-            var instruction = new LDHLSPD8();
+            var instruction = new LDHLSPS8();
 
             //act
             while (!instruction.IsFetchNecessary())

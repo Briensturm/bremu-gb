@@ -32,6 +32,37 @@ namespace BremuGb.Cpu.Tests
         }
 
         [Test]
+        public void Decode_DAA()
+        {
+            byte opcode = 0x27;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<DAA>(instruction);
+        }
+
+        [Test]
+        public void Decode_ADDSPS8()
+        {
+            byte opcode = 0xE8;
+
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<ADDSPS8>(instruction);
+        }
+
+        [TestCase(0x09)]
+        [TestCase(0x19)]
+        [TestCase(0x29)]
+        [TestCase(0x39)]
+        public void Decode_ADDHLR16(byte opcode)
+        {
+            var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
+
+            Assert.IsInstanceOf<ADDHLR16>(instruction);
+        }
+
+        [Test]
         public void Decode_SUBAD8()
         {
             byte opcode = 0xD6;
@@ -874,7 +905,7 @@ namespace BremuGb.Cpu.Tests
 
             var instruction = InstructionDecoder.GetInstructionFromOpcode(opcode);
 
-            Assert.IsInstanceOf<LDHLSPD8>(instruction);
+            Assert.IsInstanceOf<LDHLSPS8>(instruction);
         }
 
         [Test]

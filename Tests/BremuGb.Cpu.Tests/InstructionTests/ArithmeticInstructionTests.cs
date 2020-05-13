@@ -914,6 +914,74 @@ namespace BremuGb.Cpu.Tests
         }
 
         [Test]
+        public void Test_ADDSPS8()
+        {
+            ushort pc = 0x1111;
+            ushort sp = 0xFFFF;
+            byte data = 0x1;
+
+            var actualState = new CpuState();
+            actualState.ProgramCounter = pc;
+            actualState.StackPointer = sp;
+            actualState.Registers.SubtractionFlag = true;
+            actualState.Registers.ZeroFlag = true;
+
+            var expectedState = new CpuState();
+            expectedState.StackPointer = (ushort)(sp + (sbyte)data);
+            expectedState.ProgramCounter = (ushort)(pc + 1);
+            expectedState.Registers.CarryFlag = true;
+            expectedState.Registers.HalfCarryFlag = true;
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+            memoryMock.Setup(m => m.ReadByte(pc)).Returns(data);
+
+            var instruction = new ADDSPS8();
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            TestHelper.AssertCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
+        [TestCase(0x09)]
+        [TestCase(0x19)]
+        [TestCase(0x29)]
+        [TestCase(0x39)]
+        public void Test_ADDHLR16(byte opcode)
+        {
+            ushort hl = 0x0FFF;
+
+            var actualState = new CpuState();
+            actualState.Registers.HL = hl;
+            actualState.Registers.BC = hl;
+            actualState.Registers.DE = hl;
+            actualState.Registers.SubtractionFlag = true;
+            actualState.Registers.CarryFlag = true;
+            actualState.StackPointer = hl;
+
+            var expectedState = new CpuState();
+            expectedState.Registers.HL = (ushort)(hl + hl);
+            expectedState.Registers.BC = hl;
+            expectedState.Registers.DE = hl;
+            expectedState.Registers.HalfCarryFlag = true;
+            expectedState.StackPointer = hl;
+
+            var memoryMock = new Mock<IRandomAccessMemory>();
+
+            var instruction = new ADDHLR16(opcode);
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            //assert
+            TestHelper.AssertCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
+        [Test]
         public void Test_INC_HL_()
         {
             ushort address = 0x4242;

@@ -26,6 +26,30 @@ namespace BremuGb.Cpu.Tests
         }
 
         [Test]
+        public void Test_DAA()
+        {
+            byte a = 0x22;
+
+            var actualState = new CpuState();
+            actualState.Registers.A = a;
+            actualState.Registers.HalfCarryFlag = true;
+            
+            var expectedState = new CpuState();
+            expectedState.Registers.A = 0x28;
+            
+            var memoryMock = new Mock<IRandomAccessMemory>();
+
+            var instruction = new DAA();
+
+            //act
+            while (!instruction.IsFetchNecessary())
+                instruction.ExecuteCycle(actualState, memoryMock.Object);
+
+            TestHelper.AssertCpuState(expectedState, actualState);
+            memoryMock.Verify(m => m.WriteByte(It.IsAny<ushort>(), It.IsAny<byte>()), Times.Never);
+        }
+
+        [Test]
         public void Test_SCF()
         {
             var expectedState = new CpuState();
